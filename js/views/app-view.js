@@ -1,3 +1,4 @@
+
 var app = app || {};
 
 (function ($) {
@@ -16,18 +17,17 @@ var app = app || {};
 		events: {
 			'keypress .new-todo': 'createOnEnter',
 			'click .clear-completed': 'clearCompleted',
-			'click .toggle-all': 'toggleAllComplete'
+			'click #toggle-all': 'setAllTodoCompleted'
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
 		// collection, when items are added or changed. Kick things off by
 		// loading any preexisting todos that might be saved in *localStorage*.
 		initialize: function () {
-			this.allCheckbox = this.$('.toggle-all')[0];
 			this.$input = this.$('.new-todo');
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
-			this.$list = $('.todo-list');
+			this.$list = this.$('.todo-list');
 
 			this.listenTo(app.todos, 'add', this.addOne);
 			this.listenTo(app.todos, 'reset', this.addAll);
@@ -64,8 +64,6 @@ var app = app || {};
 				this.$main.hide();
 				this.$footer.hide();
 			}
-
-			this.allCheckbox.checked = !remaining;
 		},
 
 		// Add a single todo item to the list by creating a view for it, and
@@ -113,12 +111,10 @@ var app = app || {};
 			return false;
 		},
 
-		toggleAllComplete: function () {
-			var completed = this.allCheckbox.checked;
-
+		setAllTodoCompleted: function () {
 			app.todos.each(function (todo) {
 				todo.save({
-					completed: completed
+					completed: true
 				});
 			});
 		}

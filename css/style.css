@@ -1,3 +1,15 @@
 .new-todo{
     display: table-cell;
 }
+.destroy{
+    float: right;
+}
+#header{
+    text-align: center;
+}
+.todoapp{
+    margin-top: 50px;
+}
+.completed{
+    text-decoration: line-through;
+}
